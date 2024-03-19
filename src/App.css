@@ -1,38 +1,51 @@
-.App {
-  text-align: center;
-}
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.app-header {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
 }
-
-.App-link {
-  color: #61dafb;
+.wrapper {
+  display: flex;
+  justify-content: center;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.mistry-container {
+  width: 260px;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 4px 4px #000;
+}
+.mistry-container > div {
+  /* display: block; */
+  margin: 10px;
+}
+.save-button {
+  padding: 4px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+.input-style {
+  padding: 10px;
+  width: 220px;
+  border-radius: 4px;
+}
+.save-button {
+  display: inline-flex;
+  justify-content: center;
+  width: 180px;
+}
+.save-button > input {
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  background: #26a164;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+}
+.save-button > input:hover {
+  background: #fff;
+  color: #000;
+}
+.label {
+  margin: 4px 0px;
 }
