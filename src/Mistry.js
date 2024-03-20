@@ -1,16 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import moment from 'moment';
 import axios from 'axios';
 import { URL } from "./api";
+import { DATE_FORMAT } from './constant';
 
 export const Mistry = (props) => {
     const [date, setDate] = useState('');
     const [mistry, setMistry] = useState('');
     const [jogali, setJogali] = useState('');
     const [amountPaid, setAmountPaid] = useState('');
-    const [validationError, setValidationError] = useState({});
+    const [validationError, setValidationError] = useState();
+    const [successMsg, setSuccessMsg] = useState('');
 
     const handleOnChangeDate = (event) => {
         setDate( event.target.value);
+        setValidationError('');
     };
 
     const handleOnChangeMistry = (event) => {
@@ -25,34 +29,47 @@ export const Mistry = (props) => {
         setAmountPaid(event.target.value);
     };
 
-    const handleSave = () => {
-        const requestData = {
-            Date: date,
-            Mistry: mistry,
-            Jogali: jogali,
-            Amount_Paid: amountPaid,
+    const isEmptyData = !date && !mistry && !jogali && !amountPaid && !validationError;
+
+    const postData = () => {
+        if (date) {
+            const requestData = {
+                Date: moment(date).format(DATE_FORMAT).toString(),
+                Mistry: mistry || '0',
+                Jogali: jogali || '0',
+                Amount_Paid: amountPaid || '0',
+            }
+
+            axios.post(URL, requestData)
+                .then(data =>  {
+                    if (data?.status === 200) {
+                        setSuccessMsg('Successful | সফল হৈছে');
+                        setDate('');
+                        setMistry('');
+                        setJogali('');
+                        setAmountPaid('');
+                        setValidationError('');
+                    }})
+                .catch(error => { 
+                    setSuccessMsg(''); 
+                    return error 
+                });
         }
-        console.log("Test ## ", requestData);
-        axios.post(URL, requestData)
-            .then(data =>  { console.log("Test ## ", data);})
-            .catch(error => { console.log("Test error ", error)});
     }
 
-    // const fetchData = () => {
-    //     axios.get(URL)
-    //         .then(response => response.json())
-    //         .then(data =>  { console.log("Test ## ", data);})
-    //         .catch(error => { console.log("Test error ", error)});
-    // }
+    const handleSave = () => {
+        if (!date) {
+            setValidationError('Please add date | অনুগ্ৰহ কৰি তাৰিখ দিয়ক');
+        }
+        postData();
+    }
 
-    // useEffect(() => {
-    //     fetchData();
-    // }, [])
     return (
         <div className="mistry-container">
             <div>
-                <p className="label">Date:</p>
-                <input className="input-style" required value={date} onChange={handleOnChangeDate} type="date" />
+                <p className="label">Date: (বাধ্যতামূলক)</p>
+                <input className={`input-style ${validationError ? 'error-date' : ''}`} required value={date} onChange={handleOnChangeDate} max={moment().format(DATE_FORMAT)} type="date" />
+                { validationError ? <p className="error-msg">{validationError}</p> : '' }
             </div>
             <div>
                 <p className="label" >Mistry | মিস্ত্ৰী:</p>
@@ -70,9 +87,10 @@ export const Mistry = (props) => {
             </div>
             <div>
                 <p className="label" >Total today | আজিৰ মুঠ: &#8377;{jogali * 400 + mistry * 500} </p>
+                {successMsg && isEmptyData ? <p className="successful-save-msg">{successMsg}</p> : ''}
             </div>
-            <div className="save-button">
-                <input value="Save" onClick={handleSave} type="button" />
+            <div className="save-button-wrapper">
+                <input value="Save" className="save-btn" onClick={handleSave} type="button" />
             </div>
         </div>
     );

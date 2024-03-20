@@ -15,25 +15,22 @@
   box-shadow: 0px 0px 4px 4px #000;
 }
 .mistry-container > div {
-  /* display: block; */
   margin: 10px;
-}
-.save-button {
-  padding: 4px;
-  border-radius: 2px;
-  cursor: pointer;
 }
 .input-style {
   padding: 10px;
   width: 220px;
   border-radius: 4px;
 }
-.save-button {
-  display: inline-flex;
+.save-button-wrapper {
+  display: flex;
   justify-content: center;
   width: 180px;
+  padding: 4px;
+  border-radius: 2px;
+  cursor: pointer;
 }
-.save-button > input {
+.save-btn {
   padding: 8px 12px;
   border-radius: 4px;
   cursor: pointer;
@@ -42,10 +39,46 @@
   font-size: 16px;
   font-weight: 600;
 }
-.save-button > input:hover {
+.save-btn:hover {
   background: #fff;
   color: #000;
 }
+.disable-save-btn {
+  opacity: 0.5;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  background: #26a164;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+}
 .label {
   margin: 4px 0px;
+}
+.error-msg {
+  font-size: 12px;
+  margin-top: 6px;
+  color: rgb(251, 19, 19);
+}
+.error-date {
+  border: 1px solid rgb(251, 19, 19);
+}
+.successful-save-msg {
+  font-size: 14px;
+  color: #26a164;
+  margin-top: 4px;
+}
+@media (max-width: 300px) {
+  .mistry-container {
+    width: 200px;
+    padding: 6px;
+  }
+  .input-style {
+    padding: 6px;
+    width: 160px;
+  }
+  .save-button {
+    width: 160px;
+  }
 }
