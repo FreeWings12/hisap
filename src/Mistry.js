@@ -17,16 +17,27 @@ export const Mistry = (props) => {
         setValidationError('');
     };
 
-    const handleOnChangeMistry = (event) => {
-        setMistry(event.target.value);
+    const allowOnlyNumber = (value) => {
+        const pattern = /^[0-9]+$/;
+        return pattern.test(value);
+    }
+
+    const handleOnChangeMistry = ({ target: { value } }) => {
+        if (allowOnlyNumber(value) || value === '') {
+            setMistry(value);
+        }
     };
 
-    const handleOnChangeJogali = (event) => {
-        setJogali(event.target.value);
+    const handleOnChangeJogali = ({ target: { value } }) => {
+        if (allowOnlyNumber(value) || value === '') {
+            setJogali(value);
+        }
     };
 
-    const handleOnChangeAmountPaid = (event) => {
-        setAmountPaid(event.target.value);
+    const handleOnChangeAmountPaid = ({ target: { value } }) => {
+        if (allowOnlyNumber(value) || value === '') {
+            setAmountPaid(value);
+        }
     };
 
     const isEmptyData = !date && !mistry && !jogali && !amountPaid && !validationError;
@@ -73,17 +84,17 @@ export const Mistry = (props) => {
             </div>
             <div>
                 <p className="label" >Mistry | মিস্ত্ৰী:</p>
-                <input className="input-style" required placeholder="কিমানজন মিস্ত্ৰী" value={mistry} onChange={handleOnChangeMistry} type="text" />
+                <input className="input-style" required placeholder="কিমানজন মিস্ত্ৰী সংখ্যাত" value={mistry} onChange={handleOnChangeMistry} type="text" />
             </div>
             <div>
                 <p className="label" >Jogali | জগালী:</p>
-                <input className="input-style" required placeholder="কিমানজন জগালী" value={jogali} onChange={handleOnChangeJogali} type="text" />
+                <input className="input-style" required placeholder="কিমানজন জগালী সংখ্যাত" value={jogali} onChange={handleOnChangeJogali} type="text" />
             </div>
             <div>
             </div>
             <div>
                 <p className="label" >Amount paying | টকা দিম:</p>
-                <input className="input-style" required placeholder="কিমান টকা দিম" value={amountPaid} onChange={handleOnChangeAmountPaid} type="text" />
+                <input className="input-style" required placeholder="কিমান টকা দিম সংখ্যাত" value={amountPaid} onChange={handleOnChangeAmountPaid} type="text" />
             </div>
             <div>
                 <p className="label" >Total today | আজিৰ মুঠ: &#8377;{jogali * 400 + mistry * 500} </p>
